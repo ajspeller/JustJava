@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Just Java</string>
+    <string name="quantity">Quantity</string>
+    <string name="order">Order</string>
+    <string name="quantity_count">0</string>
 </resources>
