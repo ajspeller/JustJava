@@ -1,5 +1,6 @@
 package com.ajspeller.justjava;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,6 +43,22 @@ public class MainActivity extends AppCompatActivity {
                     customer);
         }
         displayMessage(priceMessage);
+        createIntent(priceMessage, customer);
+    }
+
+    private void createIntent(String priceMessage, String client) {
+
+        String subject = "Just Java Order for " + client;
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, "not@home.com");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     private String createOrderSummary(int orderPrice, boolean addWhippedCream,
