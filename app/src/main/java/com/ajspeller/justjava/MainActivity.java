@@ -3,6 +3,8 @@ package com.ajspeller.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,18 +24,34 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         String priceMessage;
 
-        if (calculatePrice() == 0) {
+        CheckBox whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream = whippedCream.isChecked();
+
+        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolate.isChecked();
+
+        EditText userName = (EditText) findViewById(R.id.customer_name);
+        String customer = userName.getText().toString();
+
+        int totalPrice = calculatePrice(hasWhippedCream, hasChocolate);
+
+        if (totalPrice == 0) {
             priceMessage = "Please enter a quantity greater than zero.\n\nThank you!";
         } else {
-            priceMessage = createOrderSummary(calculatePrice());
+            priceMessage = createOrderSummary(totalPrice, hasWhippedCream, hasChocolate,
+                    customer);
         }
         displayMessage(priceMessage);
     }
 
-    private String createOrderSummary(int orderPrice) {
+    private String createOrderSummary(int orderPrice, boolean addWhippedCream,
+                                      boolean addChocolate, String client) {
+
         String summary;
 
-        summary = "Name: AJ Speller";
+        summary = "Name: " + client;
+        summary += "\n\nAdd whipped cream? " + addWhippedCream;
+        summary += "\nAdd chocolate? " + addChocolate;
         summary += "\n\nQuantity: " + quantity;
         summary += "\nTotal: $" + orderPrice;
         summary += "\n\nThank you!";
@@ -41,8 +59,18 @@ public class MainActivity extends AppCompatActivity {
         return summary;
     }
 
-    private int calculatePrice() {
-        return quantity * 5;
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
+
+        int pricePerCup = 5;
+
+        if (addWhippedCream) {
+            pricePerCup += 1;
+        }
+
+        if (addChocolate) {
+            pricePerCup += 2;
+        }
+        return quantity * pricePerCup;
     }
 
     private void displayQuantity(int number) {

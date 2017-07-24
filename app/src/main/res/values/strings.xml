@@ -8,4 +8,8 @@
     <string name="total_dollars">%s</string>
     <string name="minus_sign">-</string>
     <string name="addition_sign">+</string>
+    <string name="toppings">Toppings</string>
+    <string name="whipped_cream">Whipped Cream</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="customer_name">Name</string>
 </resources>
