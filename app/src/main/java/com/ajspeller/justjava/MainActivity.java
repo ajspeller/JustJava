@@ -9,16 +9,28 @@ import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView priceTextView;
     private int quantity = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText("$0");
     }
 
     public void submitOrder(View view) {
-        displayPrice(quantity * 5);
+        int price = quantity * 5;
+        String priceMessage;
+
+        if (price == 0) {
+            priceMessage = "Please enter a quantity greater than zero.";
+        } else {
+            priceMessage = "Total: $" + price;
+        }
+        displayMessage(priceMessage + "\nThank you!");
     }
 
     private void display(int number) {
@@ -32,8 +44,17 @@ public class MainActivity extends AppCompatActivity {
                 NumberFormat.getCurrencyInstance().format(number)));
     }
 
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
+    }
+
     public void decrement(View view) {
         quantity--;
+        if (quantity < 0) {
+            quantity = 0;
+            return;
+        }
         display(quantity);
     }
 
