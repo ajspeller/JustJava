@@ -22,22 +22,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void submitOrder(View view) {
         String priceMessage;
-        CheckBox checkBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
-        boolean hasWhippedCream = checkBox.isChecked();
+        CheckBox whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream = whippedCream.isChecked();
+
+        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolate.isChecked();
 
         if (calculatePrice() == 0) {
             priceMessage = "Please enter a quantity greater than zero.\n\nThank you!";
         } else {
-            priceMessage = createOrderSummary(calculatePrice(), hasWhippedCream);
+            priceMessage = createOrderSummary(calculatePrice(), hasWhippedCream, hasChocolate);
         }
         displayMessage(priceMessage);
     }
 
-    private String createOrderSummary(int orderPrice, boolean addWhippedCream) {
+    private String createOrderSummary(int orderPrice, boolean addWhippedCream,
+                                      boolean addChocolate) {
+
         String summary;
 
         summary = "Name: AJ Speller";
         summary += "\n\nAdd whipped cream? " + addWhippedCream;
+        summary += "\nAdd chocolate? " + addChocolate;
         summary += "\nQuantity: " + quantity;
         summary += "\nTotal: $" + orderPrice;
         summary += "\n\nThank you!";
