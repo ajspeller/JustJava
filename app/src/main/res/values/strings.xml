@@ -4,7 +4,7 @@
     <string name="order">Order</string>
     <string name="quantity_count">2</string>
     <string name="new_quantity">%1$d</string>
-    <string name="price">Price</string>
+    <string name="price">Order Summary</string>
     <string name="total_dollars">%s</string>
     <string name="minus_sign">-</string>
     <string name="addition_sign">+</string>

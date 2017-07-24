@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-
 public class MainActivity extends AppCompatActivity {
 
     TextView priceTextView;
@@ -17,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView = (TextView) findViewById(R.id.order_summary_text_view);
         priceTextView.setText("$0");
     }
 
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         String priceMessage;
 
         if (calculatePrice() == 0) {
-            priceMessage = "Please enter a quantity greater than zero.\nThank you!";
+            priceMessage = "Please enter a quantity greater than zero.\n\nThank you!";
         } else {
             priceMessage = createOrderSummary(calculatePrice());
         }
@@ -52,15 +50,9 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText(String.format(getString(R.string.new_quantity), number));
     }
 
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(String.format(getString(R.string.total_dollars),
-                NumberFormat.getCurrencyInstance().format(number)));
-    }
-
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
     public void decrement(View view) {
