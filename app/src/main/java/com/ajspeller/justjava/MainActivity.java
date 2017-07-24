@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         displayMessage(priceMessage + "\nThank you!");
     }
 
-    private void display(int number) {
+    private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText(String.format(getString(R.string.new_quantity), number));
     }
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
             quantity = 0;
             return;
         }
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     public void increment(View view) {
         quantity++;
-        display(quantity);
+        displayQuantity(quantity);
     }
 }
