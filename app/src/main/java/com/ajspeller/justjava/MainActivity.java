@@ -3,6 +3,7 @@ package com.ajspeller.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,20 +22,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void submitOrder(View view) {
         String priceMessage;
+        CheckBox checkBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream = checkBox.isChecked();
 
         if (calculatePrice() == 0) {
             priceMessage = "Please enter a quantity greater than zero.\n\nThank you!";
         } else {
-            priceMessage = createOrderSummary(calculatePrice());
+            priceMessage = createOrderSummary(calculatePrice(), hasWhippedCream);
         }
         displayMessage(priceMessage);
     }
 
-    private String createOrderSummary(int orderPrice) {
+    private String createOrderSummary(int orderPrice, boolean addWhippedCream) {
         String summary;
 
         summary = "Name: AJ Speller";
-        summary += "\n\nQuantity: " + quantity;
+        summary += "\n\nAdd whipped cream? " + addWhippedCream;
+        summary += "\nQuantity: " + quantity;
         summary += "\nTotal: $" + orderPrice;
         summary += "\n\nThank you!";
 
