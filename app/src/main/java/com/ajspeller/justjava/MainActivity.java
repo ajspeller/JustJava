@@ -22,15 +22,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-        int price = quantity * 5;
         String priceMessage;
 
-        if (price == 0) {
-            priceMessage = "Please enter a quantity greater than zero.";
+        if (calculatePrice() == 0) {
+            priceMessage = "Please enter a quantity greater than zero.\nThank you!";
         } else {
-            priceMessage = "Total: $" + price;
+            priceMessage = createOrderSummary(calculatePrice());
         }
-        displayMessage(priceMessage + "\nThank you!");
+        displayMessage(priceMessage);
+    }
+
+    private String createOrderSummary(int orderPrice) {
+        String summary;
+
+        summary = "Name: AJ Speller";
+        summary += "\n\nQuantity: " + quantity;
+        summary += "\nTotal: $" + orderPrice;
+        summary += "\n\nThank you!";
+
+        return summary;
+    }
+
+    private int calculatePrice() {
+        return quantity * 5;
     }
 
     private void displayQuantity(int number) {
