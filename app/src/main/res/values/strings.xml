@@ -3,4 +3,5 @@
     <string name="quantity">Quantity</string>
     <string name="order">Order</string>
     <string name="quantity_count">0</string>
+    <string name="new_quantity">%1$d</string>
 </resources>
