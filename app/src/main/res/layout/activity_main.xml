@@ -94,13 +94,27 @@
             android:textColor="@android:color/black"
             android:textSize="16sp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="submitOrder"
-            android:padding="8dp"
-            android:text="@string/order"
-            android:textAllCaps="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="submitOrder"
+                android:padding="8dp"
+                android:text="@string/order"
+                android:textAllCaps="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="generateEmail"
+                android:padding="8dp"
+                android:text="@string/send_email"
+                android:textAllCaps="true"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
