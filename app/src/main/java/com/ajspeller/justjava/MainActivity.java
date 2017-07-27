@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
+        displayMessage(summaryString());
+    }
+
+    private String summaryString() {
         String priceMessage;
 
         CheckBox whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
@@ -42,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
             priceMessage = createOrderSummary(totalPrice, hasWhippedCream, hasChocolate,
                     customer);
         }
-        displayMessage(priceMessage);
-        createIntent(priceMessage, customer);
+        return priceMessage;
     }
 
     private void createIntent(String priceMessage, String client) {
@@ -113,4 +116,14 @@ public class MainActivity extends AppCompatActivity {
         quantity++;
         displayQuantity(quantity);
     }
+
+    public void generateEmail(View view) {
+
+        EditText userName = (EditText) findViewById(R.id.customer_name);
+        String customer = userName.getText().toString();
+
+        createIntent(summaryString(), customer);
+    }
+
+
 }
