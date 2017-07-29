@@ -13,4 +13,10 @@
     <string name="chocolate">Chocolate</string>
     <string name="customer_name">Name</string>
     <string name="send_email">Send Email</string>
+    <string name="coffee_small">Small</string>
+    <string name="coffee_large">Large</string>
+    <string name="price_per_cup">Price Per Cup</string>
+    <string name="coffee_size">Size</string>
+    <string name="small_coffee_price">$2.00</string>
+    <string name="large_coffee_price">$4.00</string>
 </resources>
