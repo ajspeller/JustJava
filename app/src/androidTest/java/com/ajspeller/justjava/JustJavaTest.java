@@ -80,4 +80,32 @@ public class JustJavaTest {
         onView(withId(R.id.coffeeSmall)).perform(click());
         onView(withId(R.id.pricePerCupDisplay)).check(matches(withText("$2.00")));
     }
+
+    @Test
+    public void IsTheToppingsLabelPresent() {
+        onView(withId(R.id.toppingsLabel)).check(matches(withText("Toppings")));
+    }
+
+    @Test
+    public void IsWhippedCreamATopping() {
+        onView(withId(R.id.whipped_cream_checkbox)).check(matches(withText("Whipped Cream")));
+    }
+
+    @Test
+    public void WhippedCreamDefaultSettingIsFalse() {
+        onView(withId(R.id.whipped_cream_checkbox)).check(matches(isNotChecked()));
+    }
+
+    @Test
+    public void WhippedCreamSetToTrue() {
+        onView(withId(R.id.whipped_cream_checkbox)).perform(click());
+        onView(withId(R.id.whipped_cream_checkbox)).check(matches(isChecked()));
+    }
+
+    @Test
+    public void WhippedCreamSetToFalse() {
+        onView(withId(R.id.whipped_cream_checkbox)).perform(click());
+        onView(withId(R.id.whipped_cream_checkbox)).perform(click());
+        onView(withId(R.id.whipped_cream_checkbox)).check(matches(isNotChecked()));
+    }
 }

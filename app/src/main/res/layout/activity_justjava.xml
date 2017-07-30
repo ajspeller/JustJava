@@ -12,13 +12,6 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <EditText
-            android:id="@+id/customer_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/customer_name"
-            android:inputType="textCapWords"/>
-
         <TextView
             android:id="@+id/coffeeSizeLabel"
             android:layout_width="wrap_content"
@@ -67,6 +60,7 @@
             android:padding="8dp"/>
 
         <TextView
+            android:id="@+id/toppingsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -124,6 +118,14 @@
                 android:text="@string/addition_sign"/>
 
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/customer_name"
+            android:inputType="textCapWords"/>
+
 
         <TextView
             android:layout_width="wrap_content"
