@@ -11,12 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class JustJava extends AppCompatActivity {
 
     private double quantity = 1;
     private EditText customer;
     private TextView quantityTextView;
-    private TextView orderSummaryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,8 @@ public class JustJava extends AppCompatActivity {
 
         for (int i = 0; i < Topping.Toppings.length; i++) {
             CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(Topping.Toppings[i].getName() +
-                    "  $" + String.format("%.2f", Topping.Toppings[i].getPrice()));
+            checkBox.setText(Topping.Toppings[i].getName() + "  $" +
+                    String.format(Locale.getDefault(), "%.2f", Topping.Toppings[i].getPrice()));
             checkBox.setTextSize(16);
             checkBox.setId((i + 1) * 1000);
 
@@ -48,7 +49,13 @@ public class JustJava extends AppCompatActivity {
     }
 
     public void submitOrder(View view) {
-        displayMessage(summaryString());
+        launchOrderSummaryActivity();
+    }
+
+    private void launchOrderSummaryActivity() {
+        Intent intent = new Intent(this, OrderSummary.class);
+        intent.putExtra("orderSummary", summaryString());
+        startActivity(intent);
     }
 
     private void initializeVariables() {
@@ -57,9 +64,6 @@ public class JustJava extends AppCompatActivity {
 
         quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("1");
-
-        orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText("$0");
 
         RadioButton smallCoffee = (RadioButton) findViewById(R.id.coffeeSmall);
         smallCoffee.performClick();
@@ -78,21 +82,6 @@ public class JustJava extends AppCompatActivity {
         return priceMessage;
     }
 
-    private void createIntent() {
-
-        String subject = "Just Java Order for " + customer.getText().toString();
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, "not@home.com");
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, summaryString());
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-
     private String createOrderSummary() {
 
         String summary;
@@ -105,8 +94,8 @@ public class JustJava extends AppCompatActivity {
             checkBox = (CheckBox) findViewById((i + 1) * 1000);
             summary += "\n" + Topping.Toppings[i].getName() + "? " + checkBox.isChecked();
         }
-        summary += "\n\nQuantity: " + String.format("%.0f", quantity);
-        summary += "\nTotal: $" + String.format("%.2f", calculatePrice());
+        summary += "\n\nQuantity: " + String.format(Locale.getDefault(), "%.0f", quantity);
+        summary += "\nTotal: $" + String.format(Locale.getDefault(), "%.2f", calculatePrice());
         summary += "\n\nThank you!";
 
         return summary;
@@ -147,10 +136,6 @@ public class JustJava extends AppCompatActivity {
         quantityTextView.setText(String.format(getString(R.string.new_quantity), number));
     }
 
-    private void displayMessage(String message) {
-        orderSummaryTextView.setText(message);
-    }
-
     public void decrement(View view) {
         quantity--;
         if (quantity < 0) {
@@ -165,9 +150,6 @@ public class JustJava extends AppCompatActivity {
         displayQuantity(quantity);
     }
 
-    public void generateEmail(View view) {
-        createIntent();
-    }
 
     public void onSizeGroupClicked(View view) {
 
