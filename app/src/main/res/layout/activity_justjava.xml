@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ajspeller.justjava.MainActivity">
+    tools:context="com.ajspeller.justjava.JustJava">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,35 +12,69 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <EditText
-            android:id="@+id/customer_name"
+        <TextView
+            android:id="@+id/coffeeSizeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/coffee_size"
+            android:textAllCaps="true"/>
+
+        <RadioGroup
+            android:id="@+id/coffeeSizeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/customer_name"
-            android:inputType="textCapWords"/>
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/coffeeSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onSizeGroupClicked"
+                android:text="@string/coffee_small"
+                android:textAllCaps="true"/>
+
+            <RadioButton
+                android:id="@+id/coffeeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSizeGroupClicked"
+                android:text="@string/coffee_large"
+                android:textAllCaps="true"/>
+
+        </RadioGroup>
 
         <TextView
+            android:id="@+id/pricePerCupLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/price_per_cup"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/pricePerCupDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/toppingsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/toppings"
             android:textAllCaps="true"/>
 
-        <CheckBox
-            android:id="@+id/whipped_cream_checkbox"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/toppingsLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="24dp"
-            android:text="@string/whipped_cream"
-            android:textSize="16sp"/>
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/chocolate_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="24dp"
-            android:text="@string/chocolate"
-            android:textSize="16sp"/>
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,21 +112,12 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/customer_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/price"
-            android:textAllCaps="true"/>
-
-        <TextView
-            android:id="@+id/order_summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/total_dollars"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"/>
+            android:hint="@string/customer_name"
+            android:inputType="textCapWords"/>
 
         <Button
             android:layout_width="wrap_content"
