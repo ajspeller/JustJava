@@ -7,14 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class JustJava extends AppCompatActivity {
 
-    private int quantity = 1;
-    private CheckBox whippedCream;
-    private CheckBox chocolate;
+    private double quantity = 1;
     private EditText customer;
     private TextView quantityTextView;
     private TextView orderSummaryTextView;
@@ -29,6 +28,23 @@ public class JustJava extends AppCompatActivity {
 
     private void setup() {
         initializeVariables();
+        createToppingsCheckBoxes();
+    }
+
+    private void createToppingsCheckBoxes() {
+
+        LinearLayout toppingLayout = (LinearLayout) findViewById(R.id.toppingsLayout);
+
+        for (int i = 0; i < Topping.Toppings.length; i++) {
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(Topping.Toppings[i].getName() +
+                    "  $" + String.format("%.2f", Topping.Toppings[i].getPrice()));
+            checkBox.setTextSize(16);
+            checkBox.setId((i + 1) * 1000);
+
+            toppingLayout.addView(checkBox);
+        }
+
     }
 
     public void submitOrder(View view) {
@@ -37,8 +53,6 @@ public class JustJava extends AppCompatActivity {
 
     private void initializeVariables() {
 
-        whippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
-        chocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
         customer = (EditText) findViewById(R.id.customer_name);
 
         quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
@@ -83,35 +97,43 @@ public class JustJava extends AppCompatActivity {
 
         String summary;
 
+        CheckBox checkBox;
+
         summary = "Name: " + customer.getText().toString();
-        summary += "\n\nAdd whipped cream? " + whippedCream.isChecked();
-        summary += "\nAdd chocolate? " + chocolate.isChecked();
-        summary += "\n\nQuantity: " + quantity;
-        summary += "\nTotal: $" + calculatePrice();
+        summary += "\n";
+        for (int i = 0; i < Topping.Toppings.length; i++) {
+            checkBox = (CheckBox) findViewById((i + 1) * 1000);
+            summary += "\n" + Topping.Toppings[i].getName() + "? " + checkBox.isChecked();
+        }
+        summary += "\n\nQuantity: " + String.format("%.0f", quantity);
+        summary += "\nTotal: $" + String.format("%.2f", calculatePrice());
         summary += "\n\nThank you!";
 
         return summary;
     }
 
-    private int calculatePrice() {
+    private double calculatePrice() {
 
-        int pricePerCup;
+        double pricePerCup;
+
+        CheckBox checkBox;
 
         TextView initialPricePerCup = (TextView) findViewById(R.id.pricePerCupDisplay);
 
         String pricePerCupAsString = initialPricePerCup.getText().toString();
 
         try {
-            pricePerCup = Integer.parseInt(pricePerCupAsString
+            pricePerCup = Double.parseDouble(pricePerCupAsString
                     .substring(1, pricePerCupAsString.indexOf(".")));
 
-            if (whippedCream.isChecked()) {
-                pricePerCup += 1;
+            for (int i = 0; i < Topping.Toppings.length; i++) {
+                checkBox = (CheckBox) findViewById((i + 1) * 1000);
+
+                if (checkBox.isChecked()) {
+                    pricePerCup += Topping.Toppings[i].getPrice();
+                }
             }
 
-            if (chocolate.isChecked()) {
-                pricePerCup += 2;
-            }
             return quantity * pricePerCup;
 
         } catch (NumberFormatException nfe) {
@@ -121,7 +143,7 @@ public class JustJava extends AppCompatActivity {
 
     }
 
-    private void displayQuantity(int number) {
+    private void displayQuantity(double number) {
         quantityTextView.setText(String.format(getString(R.string.new_quantity), number));
     }
 
